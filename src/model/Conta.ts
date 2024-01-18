@@ -33,6 +33,10 @@ export class Conta {
           throw new Error("valor não pode ser igual ou menor que zero");
     }
 
+    public get numero(): string {
+      return this._numeroConta.numero;
+    }
+
   }
 
   
