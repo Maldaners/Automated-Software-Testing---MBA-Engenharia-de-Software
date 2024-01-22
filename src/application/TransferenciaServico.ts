@@ -11,15 +11,15 @@ export class TransferenciaServico {
         this._repositorio = repositorio;
     }
 
-    public transferir(dto: TransferenciaDTO): string {
-        const contaOrigem = this._repositorio.buscar(dto.contaOrigem)!;
-        const contaDestino = this._repositorio.buscar(dto.contaDestino)!;
+    public async transferir(dto: TransferenciaDTO): Promise<string> {
+        const contaOrigem = await this._repositorio.buscar(dto.contaOrigem);
+        const contaDestino = await this._repositorio.buscar(dto.contaDestino);
 
         const transferencia: TransferenciaValor = new TransferenciaValor();
-        const recibo: Recibo = transferencia.transferir(contaOrigem, contaDestino, dto.valor);
+        const recibo: Recibo = transferencia.transferir(contaOrigem!, contaDestino!, dto.valor);
 
-        this._repositorio.adicionar(contaOrigem);
-        this._repositorio.adicionar(contaDestino);
+        this._repositorio.adicionar(contaOrigem!);
+        this._repositorio.adicionar(contaDestino!);
 
         return recibo.codigo;
     }

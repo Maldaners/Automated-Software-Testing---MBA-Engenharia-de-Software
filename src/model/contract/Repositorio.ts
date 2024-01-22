@@ -1,4 +1,4 @@
 export interface Repositorio<I, T>{
-    buscar(campo: I): T | undefined;
+    buscar(campo: I): Promise<T | undefined>;
     adicionar(entidade: T): void;
 }

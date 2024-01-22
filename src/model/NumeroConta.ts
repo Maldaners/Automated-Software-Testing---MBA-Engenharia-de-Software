@@ -1,23 +1,21 @@
+import { NegocioErro } from "../error/NegocioErro";
+
 export class NumeroConta {
     private _numero: string;
 
     public constructor(numero: string) {
-        this.validar(numero);
+        if(!this.temSeisDigitos(numero))
+            throw new NegocioErro("número de conta inválida");
+
         this._numero = numero;
     }
-    
-    private validar(numero: string): void {
-        if(!this.temSeisDigitos(numero)) {
-            throw new Error("número de conta inválida");
-        }
+
+    public get numero(): string {
+        return this._numero;
     }
-    
+
     private temSeisDigitos(numero: string): boolean {
         const regExp: RegExp = /^\d{6}$/;
         return regExp.test(numero);
-    }
-    
-    public get numero(): string {
-        return this._numero;
     }
 }
